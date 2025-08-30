@@ -1,10 +1,12 @@
-import React from 'react'
+"use client"
 import Image from 'next/image'
+import React from 'react'
 import { UserButton } from "@clerk/nextjs";
-
+import { useUser } from "@clerk/clerk-react";
 function NavBar() {
-    return (
-        <div className='flex justify-between
+  const { isSignedIn, user, isLoaded } = useUser();
+  return isSignedIn&&(
+    <div className='flex justify-between
      p-3 px-10 border-b-[1px] shadow-sm'>
         <div className='flex gap-10 items-center'>
             <Image src='/logo.png'
@@ -23,7 +25,7 @@ function NavBar() {
         </div>
         <UserButton afterSignOutUrl="/"/>
     </div>
-    )
+  )
 }
 
 export default NavBar

@@ -15,16 +15,6 @@ function Markers() {
 
   return (
     <div>
-        {/* User Marker  */}
-             {/* <Marker 
-                longitude={userLocation?.lng} 
-                latitude={userLocation?.lat} 
-                anchor="bottom" >
-                 <img src="./pin.png" 
-                 className='w-10 h-10'
-                 />
-                </Marker> */}
-
                 {/* Source marker  */}
              {soruceCordinates.length!=0? <Marker 
                 longitude={soruceCordinates?.lng} 
