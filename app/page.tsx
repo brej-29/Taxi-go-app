@@ -1,3 +1,4 @@
+"use client";
 import Booking from "@/components/Booking/Booking";
 import MapBoxMap from "@/components/Map/MapBoxMap";
 import { ClerkProvider,
@@ -6,8 +7,22 @@ import { ClerkProvider,
   SignedOut,
   UserButton } from "@clerk/nextjs";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+    const [userLocation,setUserLocation]=useState<any>();
+
+  useEffect(()=>{
+    getUserLocation();
+  },[])
+  const getUserLocation=()=>{
+    navigator.geolocation.getCurrentPosition(function(pos){
+      setUserLocation({
+        lat:pos.coords.latitude,
+        lng:pos.coords.longitude
+      })
+    })
+  }
   return (
     <div>
      <div className="grid grid-col-3">
