@@ -1,4 +1,5 @@
 import Booking from "@/components/Booking/Booking";
+import MapBoxMap from "@/components/Map/MapBoxMap";
 import { ClerkProvider,
   SignInButton,
   SignedIn,
@@ -14,7 +15,7 @@ export default function Home() {
           <Booking/>
         </div>
         <div className="col-span-2 bg-red-100 order-first md:order-last">
-          Map
+          <MapBoxMap/>
         </div>
      </div>
     </div>
