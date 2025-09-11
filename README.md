@@ -56,6 +56,10 @@
 -   **💳 Flexible Payment Options:** A dedicated section for payment, designed to be extended with various payment gateways.
 -   **📱 Responsive Design:** Built with Tailwind CSS, the application is fully responsive and provides a consistent user experience across desktops, tablets, and mobile devices.
 
+-   <img width="1919" height="918" alt="image" src="https://github.com/user-attachments/assets/2929ff3a-2c30-4803-ae46-c4eb17afb354" /> <img width="1919" height="921" alt="image" src="https://github.com/user-attachments/assets/ae3b9b99-b39b-499e-9abf-09bf8f4c577d" />
+
+
+
 ---
 
 ## **Getting Started**
