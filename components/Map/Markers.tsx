@@ -23,7 +23,7 @@ function Markers() {
                 
                  
                   <img src="./location.png" 
-                 className='w-10 h-10'
+                 className='w-10 h-10 drop-shadow-lg'
                  />
                 
                  

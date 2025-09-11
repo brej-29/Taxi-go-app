@@ -75,12 +75,9 @@ function AutocompleteAddress() {
   return (
     <div className=''>
         <div className='relative'>
-            <label className='text-gray-400 text-[13px]'>Where From?</label>
-            <input type="text"
-                className='bg-white p-1 
-                border-[1px] w-full 
-                rounded-md outline-none
-                focus:border-yellow-300 text-[14px]'
+            <label className='label-muted'>Where From?</label>
+            <input type="text" 
+                className="glass-field w-full text-[15px]"
                 value={source}
                 onChange={(e)=>{
                     setSource(e.target.value);
@@ -89,33 +86,32 @@ function AutocompleteAddress() {
             />
 
             {addressList?.suggestions&&sourceChange?
-            <div className='shadow-md p-1 rounded-md
-            absolute w-full bg-white z-20'>
+            <div className='absolute w-full z-20 shadow-xl rounded-xl p-1
+                bg-white dark:bg-[#111a2b] 
+                border border-slate-200 dark:border-white/10'>
             {addressList?.suggestions.map((item:any,index:number)=>(
-                <h2 key={index} className='p-3 hover:bg-gray-100
-                cursor-pointer'
+                <h2 key={index} className="p-3 rounded-lg cursor-pointer 
+           hover:bg-yellow-50 dark:hover:bg-white/10 transition-colors"
                 onClick={()=>{onSourceAddressClick(item)}}
                 >{item.full_address}</h2>
             ))}
            </div>:null}
         </div>
         <div className='relative'>
-            <label className='text-gray-400 text-[13px]'>Where To?</label>
+            <label className='label-muted'>Where To?</label>
             <input type="text"
-                className='bg-white p-1 
-                border-[1px] w-full 
-                rounded-md outline-none
-                focus:border-yellow-300 text-[14px]'
+                className='glass-field w-full text-[15px] '
                 value={destination}
                 onChange={(e)=>{setDistination(e.target.value);setDestinationChange(true)}}
             />
 
             {addressList?.suggestions&&destinationChange?
-            <div className='shadow-md p-1 rounded-md
-            absolute w-full bg-white'>
+            <div className='absolute w-full z-20 shadow-xl rounded-xl p-1
+                bg-white dark:bg-[#111a2b] 
+                border border-slate-200 dark:border-white/10'>
             {addressList?.suggestions.map((item:any,index:number)=>(
-                <h2 key={index} className='p-3 hover:bg-gray-100
-                cursor-pointer'
+                <h2 key={index} className='p-3 rounded-lg cursor-pointer 
+           hover:bg-yellow-50 dark:hover:bg-white/10 transition-colors'
                 onClick={()=>{
                     onDestinationAddressClick(item)}}
                 >{item.full_address}</h2>

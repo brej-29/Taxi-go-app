@@ -3,30 +3,30 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 
 function Cards() {
-    const [activeIndex,setActiveIndex]=useState<any>();
+  const [activeIndex, setActiveIndex] = useState<any>();
   return (
     <div>
-        <h2 className='text-[14px] font-medium'>Payment Methods</h2>
-        <div className='grid grid-cols-5 md:grid-cols-4  lg:grid-cols-5 mt-2 pl-2'>
-            {CardsList.map((item,index)=>(
-                <div key={index} className={`w-[50px] mb-1 border-[1px]
-                flex items-center
-                 justify-center 
-                 rounded-md
-                 cursor-pointer
-                 hover:border-yellow-400
-                 hover:scale-110 transition-all
-                 ${activeIndex==index
-                    ?'border-yellow-400 border-[2px]':null}`}
-                 onClick={()=>setActiveIndex(index)}>
-                    <Image src={item.image}
-                    alt={item.name}
-                    width={30}
-                    height={50}
-                    />
-                </div>
-            ))}
-        </div>
+      <h2 className='heading-strong text-[14px] font-semibold text-slate-700 dark:text-slate-200 mb-2'>Payment Methods</h2>
+      <div className='grid 
+        grid-cols-3 
+        md:grid-cols-2
+        lg:grid-cols-3'>
+        {CardsList.map((item, index) => (
+          <div
+            key={index}
+            className={`w-[70px] h-[52px] mb-2 flex items-center justify-center 
+            rounded-xl border bg-white/90 dark:bg-white/30 
+            backdrop-blur-md transition-all cursor-pointer
+            hover:scale-110 hover:shadow-lg
+            ${activeIndex==index
+              ? "border-yellow-400 ring-2 ring-yellow-400"
+              : "border-slate-300 dark:border-white/10"}`}
+            onClick={() => setActiveIndex(index)}
+          >
+            <Image src={item.image} alt={item.name} width={30} height={30} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

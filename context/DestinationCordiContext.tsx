@@ -1,3 +1,3 @@
 import { createContext } from "react";
 
-export const DestinationCordiContext=createContext<any>(null);
+export const DestinationCordiContext=createContext<any>("");

@@ -1,23 +1,196 @@
 @import "tailwindcss";
 
-:root {
- 
+
+html {
+  scroll-behavior: smooth;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.glass-field {
+  /* light mode */
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(30, 41, 59, 0.12);     /* slate-800 @ 12% */
+  color: #0f172a;                               /* slate-900 */
+  border-radius: 14px;
+  padding: 12px 14px;
+  backdrop-filter: saturate(150%) blur(6px);
+  box-shadow:
+    0 4px 12px rgba(2, 6, 23, 0.06),            /* soft drop */
+    inset 0 1px 0 rgba(255, 255, 255, 0.60);    /* top inner highlight */
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.glass-field::placeholder {
+  color: rgba(2, 6, 23, 0.45);                  /* slate-950 @ 45% */
+}
+
+.glass-field:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #facc15;                        /* yellow-400 */
+  box-shadow:
+    0 0 0 4px rgba(250, 204, 21, 0.22),         /* focus ring */
+    0 8px 24px rgba(2, 6, 23, 0.08);
+}
+
+/* dark theme variant */
+.dark .glass-field {
+  background: rgba(17, 24, 39, 0.55);           /* gray-900 glass */
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #e5e7eb;                                /* slate-200 */
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.dark .glass-field::placeholder {
+  color: rgba(226, 232, 240, 0.55);             /* slate-200 @ 55% */
+}
+
+.dark .glass-field:focus {
+  background: rgba(17, 24, 39, 0.65);
+  border-color: #facc15;
+  box-shadow:
+    0 0 0 4px rgba(250, 204, 21, 0.22),
+    0 10px 28px rgba(0, 0, 0, 0.32);
+}
+
+/* labels to be readable on light glass */
+.label-muted {
+  color: rgba(2, 6, 23, 0.65);
+  font-weight: 600;
+  font-size: 13px;
+}
+.dark .label-muted {
+  color: rgba(226, 232, 240, 0.8);
+}
+
+.heading-strong { color: #676767; }           /* light */
+.dark .heading-strong { color: #ffffff !important; } 
+
+:root {
+  /* text color */
+  --fg: #0f172a; /* slate-900 */
+
+  /* LIGHT gradient (blue) */
+  --bg-from: #eaf3ff;
+  --bg-via:  #d9ecff;
+  --bg-to:   #cfe6ff;
+
+  /* LIGHT glow blobs */
+  --blob-cyan:  rgba(56, 189, 248, 0.35); /* cyan-400 */
+  --blob-green: rgba(16, 185, 129, 0.25); /* emerald-500 */
+
+  --nav-bg: linear-gradient(180deg, #598ac9 0%, #b6d5ff 100%); /* dark blue */
+  --nav-fg: #e6f2ff;                                          /* light cyan text */
+  --nav-border: #002fff;
+}
+
+/* Dark theme (applied when <html class="dark">) */
+html.dark {
+  --fg: #c7daff; /* slate-200 */
+
+  /* DARK gradient (deep blue) */
+  --bg-from: #0b1220;
+  --bg-via:  #0a1529;
+  --bg-to:   #081427;
+
+  /* DARK glow blobs (subtler) */
+  --blob-cyan:  rgba(0, 179, 255, 0.18);
+  --blob-green: rgba(0, 255, 170, 0.12);
+
+  --nav-bg: linear-gradient(180deg, #111827 0%, #283b67 100%); /* dark grey */
+  --nav-fg: #e5e7eb;                                           /* slate-200 */
+  --nav-border: #334155; 
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,  
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--fg);
+  /* two radial “blob” glows + the base vertical gradient */
+  background:
+    radial-gradient(600px 350px at 90% 8%,  var(--blob-cyan),  transparent 60%),
+    radial-gradient(700px 400px at 8% 85%,  var(--blob-green), transparent 60%),
+    linear-gradient(180deg, var(--bg-from) 0%, var(--bg-via) 40%, var(--bg-to) 100%);
+  background-attachment: fixed;            /* keeps blobs in place on scroll */
+  transition: background 0.35s ease, color 0.25s ease;
+  min-height: 100vh;
+}
+
+.loader {
+  border: 6px solid #e5e7eb;
+  border-top: 6px solid #facc15;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Fade loader out */
+#app-loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease-out;
+}
+
+/* ===== Navbar ===== */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 48px;
+  color: var(--nav-fg);
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--nav-border);
+  box-shadow: 0 6px 24px rgba(2, 6, 23, 0.12);
+  backdrop-filter: saturate(160%) blur(8px);
+  transition: background 0.3s ease, color 0.2s ease, border-color 0.3s ease;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-links {
+  display: none;
+  gap: 64px;                 /* more spacing between items */
+  font-size: 22px;           /* bigger */
+  letter-spacing: 0.02em;    /* stylish */
+}
+@media (min-width: 768px) {
+  .nav-links { display: flex; }
+}
+
+.nav-link {
+  color: var(--nav-fg);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.nav-link:hover { color: #facc15; } /* yellow-400 */
+
+.nav-theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--nav-fg);
+  transform: translateZ(0);
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.nav-theme-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }

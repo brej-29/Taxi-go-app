@@ -21,7 +21,7 @@ function MapboxMap() {
     DestinationCordiContext
   );
 
-  const {directionData, setDirectionData} = useContext(DirectionDataContext);
+  const { directionData, setDirectionData } = useContext(DirectionDataContext);
 
   //Use to Fly to Source Marker Location
 
@@ -51,16 +51,16 @@ function MapboxMap() {
   const getDirectionRoute = async () => {
     const res = await fetch(
       MAPBOX_DRIVING_ENDPOINT +
-        soruceCordinates.lng +
-        "," +
-        soruceCordinates.lat +
-        ";" +
-        destinationCordinates.lng +
-        "," +
-        destinationCordinates.lat +
-        "?overview=full&geometries=geojson" +
-        "&access_token=" +
-        process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
+      soruceCordinates.lng +
+      "," +
+      soruceCordinates.lat +
+      ";" +
+      destinationCordinates.lng +
+      "," +
+      destinationCordinates.lat +
+      "?overview=full&geometries=geojson" +
+      "&access_token=" +
+      process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
       {
         headers: {
           "Content-Type": "application/json",
@@ -75,9 +75,13 @@ function MapboxMap() {
   };
 
   return (
-    <div className="p-5">
-      <h2 className="text-[20px] font-semibold">Map</h2>
-      <div className="rounded-lg overflow-hidden">
+    <div className="p-6 rounded-2xl bg-white/80 dark:bg-white/[0.06]
+                backdrop-blur-xl shadow-xl 
+                border border-slate-200 dark:border-white/10 
+                space-y-6 transition-colors">
+      <h2 className="heading-strong text-2xl font-extrabold mb-3 ">Map</h2>
+      <div className="relative rounded-2xl overflow-hidden shadow-xl 
+                border border-slate-200 dark:border-white/10">
         {userLocation ? (
           <Map
             ref={mapRef}
@@ -87,23 +91,23 @@ function MapboxMap() {
               latitude: userLocation?.lat,
               zoom: 14,
             }}
-            style={{ width: "100%", height: 450, borderRadius: 10 }}
-            mapStyle="mapbox://styles/mapbox/streets-v9"
+            style={{ width: "100%", height: 450 }}
+            mapStyle="mapbox://styles/mapbox/streets-v12"
           >
             <Markers />
-
             {directionData?.routes ? (
-              <MapBoxRoute
-                coordinates={directionData?.routes[0]?.geometry?.coordinates}
-              />
+              <MapBoxRoute coordinates={directionData?.routes[0]?.geometry?.coordinates} />
             ) : null}
           </Map>
+          
         ) : null}
+        <div className="pointer-events-none absolute inset-0 bg-transparent dark:bg-black/15" />
       </div>
+
       <div className="absolute bottom-[40px]
       z-20 right-[20px]">
-     <DistanceTime />
-     </div>
+        <DistanceTime />
+      </div>
     </div>
   );
 }

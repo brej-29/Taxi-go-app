@@ -17,6 +17,9 @@ export default function Home() {
 
   useEffect(()=>{
     getUserLocation();
+
+    const loader = document.getElementById("app-loader");
+    if(loader) setTimeout(() => loader.classList.add("fade-out"), 800);
   },[])
   const getUserLocation=()=>{
     navigator.geolocation.getCurrentPosition(function(pos){
@@ -27,18 +30,16 @@ export default function Home() {
     })
   }
   return (
-    <div className=''>
+    <div className='min-h-[calc(100vh-64px)]'>
       <UserLocationContext.Provider value={{userLocation,setUserLocation}}>
       <SourceCordiContext.Provider value={{soruceCordinates,setSourceCordinates}}>
       <DestinationCordiContext.Provider value={{destinationCordinates,setDestinationCordinates}}>
       <DirectionDataContext.Provider value={{directionData,setDirectionData}}>
-     <div className='grid grid-cols-1 
-     md:grid-cols-3'>
-        <div className=''>
-          <Booking/>
-        </div>
-        <div className='col-span-2
-        '>
+     <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 p-6 md:p-8'>
+          <div className=''>
+            <Booking/>
+          </div>
+          <div className="col-span-2">
           <MapboxMap/>
         </div>
      </div>
